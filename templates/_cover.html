@@ -1,0 +1,36 @@
+{% extends 'covers/fixed_with_navbar.html' %}
+{% load static %}
+
+{% block customstyle %}
+{{ block.super }}
+<style>
+</style>
+{% endblock customstyle %}
+
+{% block navbar %}
+<section id="above-the-fold">
+  <div class="position-absolute top-0 w-100" style="z-index: 999;">
+  {% block above_the_fold_navbar %}
+  {% include 'navbar/common.html' %}
+  {% endblock above_the_fold_navbar %}
+  </div>
+
+  <div id="xyz" class="h-100 w-100">
+    <div class="container-xl" style="padding-top: 80px;">
+      <div class="d-flex flex-column">
+        {% block bilboard %}
+        <div class="mb-5">
+          <a role="button"
+             id="cover-cta"
+             class="btn btn-primary"
+             href="mailto:{{ contact_email|default:'hello@qux.dev' }}">
+            Contact Us
+            <i class="bi bi-chevron-right"></i>
+          </a>
+        </div>
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock navbar %}

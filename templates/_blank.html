@@ -4,7 +4,7 @@
 
 {% block application_name %}Qjango by Qux{% endblock %}
 {% block apple_mobile_web_app_title %}Qjango by Qux{% endblock %}
-{% block icon %}{% static 'logo/logo_20220701.svg' %}{% endblock %}
+{% block icon %}{% static 'logo/qjango.svg' %}{% endblock %}
 
 {% block keywords %}{{ meta.keywords }}{% endblock %}
 
@@ -21,7 +21,7 @@
 {% block og_url_prefix %}https://quxdev.com{% endblock %}
 {% block og_site_name %}Qjango by Qux{% endblock %}
 {% block og_title_prefix %}Qjango by Qux{% endblock %}
-{% block og_image %}https://qux.dev/static/logo/logo_20220701_meta.png{% endblock %}
+{% block og_image %}https://qux.dev/static/logo/qux.png{% endblock %}
 
 {# Twitter Card #}
 {% block twitter_site %}@quxdev{% endblock %}
@@ -29,7 +29,7 @@
 {% block twitter_title_prefix %}Qjango by Qux{% endblock %}
 {% block twitter_creator %}@quxdev{% endblock %}"/>
 {% block twitter_creator_id %}@quxdev{% endblock %}"/>
-{% block twitter_image %}https://qux.dev/static/logo/logo_20220701_meta.png{% endblock %}
+{% block twitter_image %}https://qux.dev/static/logo/qux.png{% endblock %}
 
 {% block canonical_prefix %}https://quxdev.com{% endblock %}
 
@@ -73,10 +73,6 @@
 
 {% block javascript %}
 {{ block.super }}
-{% comment %}
-/* Font Awesome */
-<script src="https://kit.fontawesome.com/123456789a.js" crossorigin="anonymous"></script>
-{% endcomment %}
 <script src="{% static 'js/site.js' %}"></script>
 {% endblock %}
 

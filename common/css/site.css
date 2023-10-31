@@ -1,0 +1,22 @@
+#above-the-fold #xyz {
+  font-family: "Inter", -apple-system, sans-serif;
+  font-size: 2rem;
+}
+@media screen and (max-width: 767px) {
+  #above-the-fold #xyz {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (max-width: 575px) {
+  #above-the-fold #xyz {
+    font-size: 1rem;
+  }
+}
+.h1 {
+  font-size: 2em;
+  font-weight: 800;
+}
+.h2 {
+  font-size: 1.25em;
+  font-weight: 500;
+}
