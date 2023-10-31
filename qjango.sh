@@ -36,12 +36,12 @@ done
 # ssh is our preferred method of authentication.
 ssh -T git@github.com > /dev/null 2>&1
 if [ $? -eq 1 ]; then
-    git clone git@github.com:${account}/${repo}.git
+    git clone "git@github.com:${account}/${repo}.git"
 else
-    git clone https://github.com/${account}/${repo}.git
+    git clone "https://github.com/${account}/${repo}.git"
 fi
 
-cd ${repo}
+cd "${repo}" || exit
 
 # Update submodules
 git submodule update --init
@@ -49,10 +49,11 @@ git submodule update --init
 # Create virtual environment
 python3.8 -m venv venv
 
+venv_prompt_regexp="s/PS1=""(venv)/PS1=""(venv:$repo)/g"
 if [[ $OSTYPE == darwin* ]]; then
-    sed -i '' 's/PS1=\"(venv)/PS1=\"(venv:$repo)/g' venv/bin/activate
+    sed -i '' "${venv_prompt_regexp}" venv/bin/activate
 else
-    sed -i 's/PS1=\"(venv)/PS1=\"(venv:$repo)/g' venv/bin/activate
+    sed -i "${venv_prompt_regexp}" venv/bin/activate
 fi
 
 # Activate virtual environment
@@ -62,10 +63,6 @@ source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 
-echo $(pwd)
-
-echo $(which python)
-
 # Migrate models to db.sqlite3
 python manage.py migrate
 
@@ -74,9 +71,11 @@ dotenv="project/.env"
 if [ ! -f dotenv ]; then
     touch ${dotenv}
     secret=$(venv/bin/python manage.py generate_secret_key)
-    echo "DJANGO_SECRET_KEY=\"${secret}\"" >> ${dotenv}
-    echo "DJANGO_DEBUG=true" >> ${dotenv}
-    echo "BOOTSTRAP=bs5" >> ${dotenv}
+    {
+      echo "DJANGO_SECRET_KEY=\"${secret}\""
+      echo "DJANGO_DEBUG=true"
+      echo "BOOTSTRAP=bs5"
+    } >> ${dotenv}
 fi
 
 # Runserver and test
