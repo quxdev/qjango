@@ -1,0 +1,21 @@
+-r prod.txt
+
+ipython~=8.0
+
+black~=24.1
+
+pylint~=3.0
+pylint-django~=2.5
+
+astroid==3.0.3
+dill==0.3.8
+isort==5.13.2
+mccabe==0.7.0
+mypy-extensions==1.0.0
+packaging==23.2
+pathspec==0.12.1
+platformdirs==4.2.0
+tomli==2.0.1
+tomlkit==0.12.3
+
+djhtml==3.0.6
