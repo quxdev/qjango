@@ -13,6 +13,7 @@ urlpatterns = [
     path("impersonate/", include("impersonate.urls")),
     path("", include("qux.auth.urls.appurls", namespace="qux_auth")),
     path("", TemplateView.as_view(template_name="qjango.html"), name="home"),
+    path("", include("apps.gizmo.urls.appurls"), name="gizmo"),
 ]
 
 if settings.DEBUG and ('debug_toolbar' in settings.INSTALLED_APPS):

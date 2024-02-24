@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "qux",
     "qux.seo",
     "qux.auth",
+    "apps.gizmo",
 ]
 
 MIDDLEWARE = [
