@@ -25,6 +25,20 @@ ALLOWED_HOSTS = [host.strip() for host in allowed_hosts.split(",") if host]
 
 SITE_ID = os.getenv("DJANGO_SITE_ID", 1)
 
+admins = os.getenv("DJANGO_ADMINS", "")
+if admins:
+    ADMINS = [tuple(item.split(",")) for item in admins.split(";") if item]
+else:
+    ADMINS = [("Qjango Admin", "qjango@qux.dev")]
+
+managers = os.getenv("DJANGO_MANAGERS", "")
+if managers:
+    MANAGERS = [tuple(item.split(",")) for item in managers.split(";") if item]
+else:
+    MANAGERS = ADMINS
+
+DEFAULT_FROM_EMAIL = os.environ.get("DJANGO_DEFAULT_FROM_EMAIL", None)
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -41,6 +55,7 @@ INSTALLED_APPS = [
     "qux",
     "qux.seo",
     "qux.auth",
+    "qux.token",
     "apps.gizmo",
 ]
 
@@ -175,6 +190,15 @@ LOGOUT_URL = "/logout/"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "qux.token.models.CustomTokenAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    # "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.openeapi.AutoSchema",
+}
+
 # graph_models
 GRAPH_MODELS = {
     "disable-abstract-fields": True,
@@ -193,7 +217,7 @@ GRAPH_MODELS = {
         "AbstractRefData",
     ],
     "disable_sort_fields": True,
-    "arrow_shapw": "crow",
+    "arrow_shape": "crow",
     "color_code_deletions": True,
     "rankdir": "BT",
 }
@@ -207,4 +231,3 @@ INTERNAL_IPS = [
 
 SITE_HEADER = os.getenv("SITE_HEADER", "Qjango by Qux")
 SITE_TITLE = os.getenv("SITE_TITLE", "Qjango")
-

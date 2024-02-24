@@ -12,4 +12,4 @@ class GizmoConfig(AppConfig):
         from . import signals
 
         if settings.DEBUG:
-            print("Loaded aperture signals")
+            print("Loaded app signals")

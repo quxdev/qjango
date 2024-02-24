@@ -1,3 +1,4 @@
 [submodule "qux"]
 	path = qux
 	url = https://github.com/quxdev/qux.git
+	branch = main

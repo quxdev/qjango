@@ -1,0 +1,23 @@
+DJANGO_SECRET_KEY="thequickbrownfoxjumpsoverthelazydog"
+DJANGO_DEBUG=true
+# DJANGO_ALLOWED_HOSTS=""
+# DJANGO_ADMINS="root@qux.dev"
+# DJANGO_MANAGERS="root@qux.dev"
+# DJANGO_DEFAULT_FROM_EMAIL=""
+
+BOOTSTRAP=bs5
+
+EMAIL_BACKEND="django.core.mail.backends.console.EmailBackend"
+# EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+AWS_SES_SMTP_HOST="email-smtp.us-east-1.amazonaws.com"
+AWS_SES_SMTP_PORT="587"
+AWS_SES_SMTP_USER="AWS_SES_SMTP_User"
+AWS_SES_SMTP_PASSWORD="AWS_SES_SMTP_Password"
+
+# DB_TYPE=mysql
+# DB_NAME=qjango
+# DB_USERNAME=qux
+# DB_PASSWORD=ab!%c1a5wq
+# DB_HOST=localhost
+# DB_PORT=
+
