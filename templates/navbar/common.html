@@ -1,0 +1,28 @@
+{% load static qux %}
+<nav class="navbar navbar-expand-md py-3 bg-light role role-{{ user.role.role.id }}">
+  <div class="container-xl">
+    <a class="navbar-brand d-flex align-items-center py-0" href="/">
+      <img src="{% static 'logo/logo.svg' %}" height=32px alt="{{ meta.domain }}">
+      <span class="text-uppercase ms-2">
+        {{ meta.name }}
+      </span>
+    </a>
+
+    <button class="navbar-toggler m-0 p-2 bg-secondary text-white"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+      <i class="bi bi-list custom-navbar-toggler-icon"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-1 ms-md-auto mt-2 mt-md-0">
+        {% include "navbar/users.html" %}
+      </ul>
+      <div class="navbar-collapse-hack d-none"></div>
+    </div>
+  </div>
+</nav>

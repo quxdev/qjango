@@ -1,0 +1,83 @@
+{% extends '_seo.html' %}
+{% load static i18n qux %}
+{% lineless %}
+
+{% block application_name %}Qjango by Qux{% endblock %}
+{% block apple_mobile_web_app_title %}Qjango by Qux{% endblock %}
+{% block icon %}{% static 'logo/logo_20220701.svg' %}{% endblock %}
+
+{% block keywords %}{{ meta.keywords }}{% endblock %}
+
+{% block title_prefix %}Qjango by Qux{% endblock %}
+
+{% block meta_description %}{% if meta.description %}{{ meta.description }}{% endif %}{% endblock %}
+{% block og_description %}{% if meta.description %}{{ meta.description }}{% endif %}{% endblock %}
+{% block twitter_description %}{% if meta.description %}{{ meta.description }}{% endif %}{% endblock %}
+
+{% block title %}{% if meta.page_title %} | {{ meta.page_title }}{% endif %}{% endblock %}
+{% block og_title %}{% if meta.page_title %} | {{ meta.page_title }}{% endif %}{% endblock %}
+
+{# Facebook Open Graph #}
+{% block og_url_prefix %}https://quxdev.com{% endblock %}
+{% block og_site_name %}Qjango by Qux{% endblock %}
+{% block og_title_prefix %}Qjango by Qux{% endblock %}
+{% block og_image %}https://qux.dev/static/logo/logo_20220701_meta.png{% endblock %}
+
+{# Twitter Card #}
+{% block twitter_site %}@quxdev{% endblock %}
+{% block twitter_site_id %}@quxdev{% endblock %}
+{% block twitter_title_prefix %}Qjango by Qux{% endblock %}
+{% block twitter_creator %}@quxdev{% endblock %}"/>
+{% block twitter_creator_id %}@quxdev{% endblock %}"/>
+{% block twitter_image %}https://qux.dev/static/logo/logo_20220701_meta.png{% endblock %}
+
+{% block canonical_prefix %}https://quxdev.com{% endblock %}
+
+{% block og_url %}{{ meta.canonical }}{% endblock %}
+{% block canonical %}{{ meta.canonical }}{% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/site.css' %}">
+
+{% endblock %}
+
+{% block widgets %}
+<div id="loading" class="d-none">
+  <div id="spinner" class="fa-5x">
+    <i class="fas fa-spinner fa-spin"></i>
+  </div>
+</div>
+{% endblock %}
+
+{% block navbar %}
+{% include 'navbar/common.html' %}
+{% endblock %}
+
+{% block footer %}
+{% include '_footer.html' %}
+{% endblock %}
+
+{% block qux_content %}
+<div class="container">
+  <div class="my-4 fw-bold
+              {% block qux_page_title_extra %}{% endblock qux_page_title_extra %}">
+    {% block qux_page_title %}{% endblock qux_page_title %}
+  </div>
+
+  <div class="my-4">
+    {% block qux_page_content %}{% endblock qux_page_content %}
+  </div>
+</div>
+{% endblock qux_content %}
+
+{% block javascript %}
+{{ block.super }}
+{% comment %}
+/* Font Awesome */
+<script src="https://kit.fontawesome.com/123456789a.js" crossorigin="anonymous"></script>
+{% endcomment %}
+<script src="{% static 'js/site.js' %}"></script>
+{% endblock %}
+
+{% endlineless %}

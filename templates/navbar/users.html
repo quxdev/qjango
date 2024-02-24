@@ -1,0 +1,40 @@
+{% if user.is_anonymous %}
+<li class="nav-item ms-lg-3 text-uppercase">
+  <a class="nav-link" href="{% url 'qux_auth:login' %}">Login</a>
+</li>
+{% else %}
+<li class="nav-item ms-lg-3 dropdown text-uppercase">
+  <a href="#" class="nav-link" role="button" data-bs-toggle="dropdown"
+     id="navbarDropdownUser">
+    <span class="text-nowrap">
+      {% if user.is_superuser %}
+        <span class="text-danger">Account</span>
+      {% elif user.is_staff %}
+        <span class="text-primary">Account</span>
+      {% else %}
+        Account
+      {% endif %}
+    </span>
+  </a>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUser">
+    <li class="dropdown-header">{{ user.email }}</li>
+    <li class="dropdown-divider"></li>
+    <li>
+      <a class="dropdown-item" href="{% url 'qux_auth:change_password' %}">Change Password</a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="{% url 'qux_auth:logout' %}">Logout</a>
+    </li>
+    {% if user.is_super or user.is_staff %}
+    <li class="dropdown-divider"></li>
+    <li class="dropdown-header {% if user.is_superuser %}text-danger{% endif %}">Users</li>
+    <li class="dropdown-item {% if user.is_superuser %}text-danger{% endif %}">
+      <a href="{% url 'user:list' %}">List</a>
+    </li>
+    <li class="dropdown-item {% if user.is_superuser %}text-danger{% endif %}">
+      <a href="{% url 'user:create' %}">Create</a>
+    </li>
+    {% endif %}
+  </ul>
+</li>
+{% endif %}
