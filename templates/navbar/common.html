@@ -1,8 +1,11 @@
 {% load static qux %}
-<nav class="navbar navbar-expand-md py-3 bg-light role role-{{ user.role.role.id }}">
+<nav class="navbar navbar-expand-md py-3 custom-navbar navbar-light role role-{{ user.role.role.id }}">
   <div class="container-xl">
     <a class="navbar-brand d-flex align-items-center py-0" href="/">
-      <img src="{% static 'logo/logo.svg' %}" height=32px alt="{{ meta.domain }}">
+      <img id="navbar-brand-image"
+           src="{% static 'logo/logo.svg' %}"
+           height=32px
+           alt="{{ meta.domain }}">
       <span class="text-uppercase ms-2">
         {{ meta.name }}
       </span>

@@ -1,0 +1,34 @@
+{% extends "_blank.html" %}
+
+{% block rawcontent %}
+<!-- qux_content -->
+<main role="main" class="m-auto">
+<div id="qux_content" class="h-100">
+<section class="container" style="padding-bottom: 72px;">
+  <div class="qux-jumbotron m-auto">
+    <div class="qux-jumbotron-content p-3 p-md-5">
+      <div>
+        <h1 class="my-3 my-md-5">
+          <i class="fa-solid {% block qjango_service_fa_icon %}{% endblock %} mr-2"
+             style="font-size: 0.75em; vertical-align: revert; line-height: 1em;"></i>
+            {% block qjango_service_name %}
+            {% endblock %}
+        </h1>
+        <div class="my-3 my-md-5">
+            {% block qjango_service_oneliner %}
+            {% endblock %}
+        </div>
+        <div class="my-3 my-md-5">
+          <a class="btn btn-primary text-white" href="#" role="button">Learn more &raquo;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+ </section>
+{% block qux_content %}{% endblock qux_content %}
+</div>
+</main>
+
+{% block qux_below_the_fold %}
+{% endblock qux_below_the_fold %}
+{% endblock rawcontent %}

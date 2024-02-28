@@ -1,0 +1,82 @@
+{% extends "_blank.html" %}
+
+{% block qux_content %}
+<section id="section-splash">
+  <div class="container">
+    <div id="splash" class="qux-jumbotron text-white">
+      <div class="qux-jumbotron-content p-3 p-md-5">
+        <div>
+          <h1 class="my-3 my-md-5">
+            <i class="fa-solid {% block qjango_service_fa_icon %}{% endblock %} mr-2"
+               style="font-size: 0.75em; vertical-align: revert; line-height: 1em;"></i>
+              {% block qjango_service_name %}
+              {% endblock %}
+          </h1>
+          <div class="my-3 my-md-5">
+              {% block qjango_service_oneliner %}
+              {% endblock %}
+          </div>
+          <div class="my-3 my-md-5">
+            <a class="btn btn-primary text-white" href="#" role="button">Learn more &raquo;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ </section>
+
+{% block qjango_landing_page_content %}
+{% endblock qjango_landing_page_content %}
+{% endblock qux_content %}
+
+{% block customstyle %}
+{{ block.super }}
+<style>
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.custom-navbar {
+  background-color: rgb(48, 96, 192) !important;
+  color: white !important;
+}
+.navbar-brand {
+  color: white !important;
+}
+.nav-link {
+  color: white !important;
+  border: 1px solid transparent;
+}
+.nav-link:focus, .nav-link:hover {
+  color: white !important;
+}
+#section-splash {
+  background-color: rgb(48, 96, 192);
+  clip-path: ellipse(100% 100% at 33% 0%);
+}
+@media screen and (max-width: 767px) {
+  #section-splash {
+    clip-path: ellipse(125% 100% at 16% 0%);
+  }
+}
+@media screen and (max-width: 575px) {
+  #section-splash {
+    clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0);
+  }
+}
+</style>
+{% endblock %}
+
+{% block customjs %}
+{{ block.super }}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  let navbarBrandImage = document.getElementById("navbar-brand-image");
+  if (navbarBrandImage) {
+    let logo = "{{ site.baseurl }}/static/logo/qjango_inverse.svg";
+    navbarBrandImage.setAttribute("src", logo);
+  }
+});
+</script>
+{% endblock customjs %}
