@@ -14,7 +14,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("impersonate/", include("impersonate.urls")),
     path("", include("qux.auth.urls.appurls", namespace="qux_auth")),
-    path("", TemplateView.as_view(template_name="qjango.html"), name="home"),
+    path("", TemplateView.as_view(template_name="cover.html"), name="home"),
     path("", include("apps.gizmo.urls.appurls"), name="gizmo"),
 ]
 
