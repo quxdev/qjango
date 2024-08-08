@@ -1,16 +1,7 @@
-"""
-For more information on this file, see
-https://docs.djangoproject.com/en/4.2/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/4.2/ref/settings/
-
-Quick-start development settings - unsuitable for production
-See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-"""
 import os
-import dotenv
 from pathlib import Path
+
+import dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -23,7 +14,7 @@ DEBUG = os.getenv("DJANGO_DEBUG", "").lower() == "true"
 allowed_hosts = os.getenv("DJANGO_ALLOWED_HOSTS", "")
 ALLOWED_HOSTS = [host.strip() for host in allowed_hosts.split(",") if host]
 
-SITE_ID = os.getenv("DJANGO_SITE_ID", 1)
+SITE_ID = int(os.getenv("DJANGO_SITE_ID", "1"))
 
 admins = os.getenv("DJANGO_ADMINS", "")
 if admins:
