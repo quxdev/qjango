@@ -1,0 +1,112 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+
+jobs:
+  build:
+    strategy:
+        matrix:
+            python-version: [3.11, 3.12]
+            django-version: [4.2, 5.0]
+
+    runs-on: ubuntu-24.04
+
+    env:
+      DJANGO_SECRET_KEY: 'thequickbrownfoxjumpsoverthelazydog'
+      DJANGO_DEBUG: 'True'
+      DJANGO_ALLOWED_HOSTS: 'localhost'
+      BOOTSTRAP: 'bs5'
+      DB_TYPE: 'mysql'
+      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD || 'my_password' }}
+      DB_NAME: 'qjango'
+      DB_USERNAME: ${{ secrets.DB_USERNAME || 'qux' }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD || 'quixotic' }}
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      EMAIL_BACKEND: django.core.mail.backends.console.ConsoleBackend
+      DJANGO_SETTINGS_MODULE: "project.settings"
+
+    services:
+      mysql:
+        image: mysql:latest
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD || 'my_password' }}
+          MYSQL_DATABASE: ${{ env.DB_NAME }}
+          MYSQL_USER: ${{ env.DB_USERNAME }}
+          MYSQL_PASSWORD: ${{ env.DB_PASSWORD }}
+
+        options: >-
+          --health-cmd "mysqladmin ping -h localhost"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - name: SET derived env variables
+      run: echo "DATABASE_URL='mysql://${{ env.DB_USERNAME }}:${{ env.DB_PASSWORD }}@${{ env.DB_HOST }}:3306/${{ env.DB_NAME }}'"
+    
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Update Submodules
+      run: git submodule update --init --recursive
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m venv venv
+        . venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements/py312_dj5.txt
+
+    - name: Wait for MySQL to be ready
+      run: |
+        until mysqladmin ping -h 127.0.0.1 --silent; do
+          echo 'Waiting for MySQL...'
+          sleep 5
+        done
+
+    - name: Create test database
+      run: |
+        mysql -h 127.0.0.1 -u root -p${{ env.MYSQL_ROOT_PASSWORD }} -e "CREATE DATABASE IF NOT EXISTS ${{ env.DB_NAME }};"
+
+    - name: Lint with pylint
+      run: |
+        . venv/bin/activate
+        pip install pylint pylint-django
+        pylint --rcfile=.pylintrc project
+        pylint --rcfile=.pylintrc apps
+
+    - name: Format with black
+      run: |
+        . venv/bin/activate
+        pip install black
+        black --check project
+        black --check apps
+
+    - name: Create and apply migrations
+      run: |
+        . venv/bin/activate
+        python manage.py makemigrations
+        python manage.py migrate
+
+    # - name: Load fixtures
+    #   run: |
+    #     . venv/bin/activate
+    #     python manage.py loaddata apps/gizmo/fixtures/*.json
+
+    - name: Run tests
+      run: |
+        . venv/bin/activate
+        python manage.py test project
+        python manage.py test apps
