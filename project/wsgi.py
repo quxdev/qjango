@@ -25,4 +25,3 @@ os.environ.setdefault("DJANGO_PYTHON_PATH", str(REPO_DIR))
 addpath(REPO_DIR)
 
 application = get_wsgi_application()
-
