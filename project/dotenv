@@ -1,0 +1,7 @@
+DJANGO_SECRET_KEY="thequickbrownfoxjumpsoverthelazydog"
+DJANGO_DEBUG=true
+DJANGO_ALLOWED_HOSTS="localhost,127.0.0.1"
+BOOTSTRAP=bs5
+
+EMAIL_BACKEND=django.core.mail.backends.console.ConsoleBackend
+
