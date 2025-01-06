@@ -1,17 +1,31 @@
 # Qjango - A Qux Django Template
 
-## Getting Started
+## Directory Structure
 
 ```
-account="quxdev"
-repo="qjango"
+qjango
+├── activate.sh
+├── deploy.sh
+├── qjango <github.git/quxdev/qjango.git>
+│   ├── apps
+│   ├── common
+│   ├── config
+│   ├── mailroom
+│   ├── media
+│   ├── project
+│   ├── qux
+│   ├── requirements
+│   └── templates
+└── venv
+    ├── bin
+    ├── include
+    ├── lib
+    └── share
+```
 
-git clone https://github.com/${account}/${repo}.git
-cd ${repo}
+## Virtual Environment
 
-# Update submodules
-git submodule update --init
-
+```
 # Create virtual environment
 python3 -m venv venv
 
@@ -26,7 +40,26 @@ source venv/bin/activate
 
 # Upgrade pip and install packages
 pip install --upgrade pip
-pip install -r requirements.txt
+pip install -r requirements/py312_dj5.txt
+
+if [[ $OSTYPE == darwin* ]]; then
+    pip install --upgrade pygraphviz --config-settings="--global-option=build_ext" --config-settings="--global-option=-I$(brew --prefix graphviz)/include/" --config-settings="--global-option=-L$(brew --prefix graphviz)/lib/";
+else
+    pip install --upgrade pygraphviz
+fi
+```
+
+## Getting Started
+
+```
+account="quxdev"
+repo="qjango"
+
+git clone https://github.com/${account}/${repo}.git
+cd ${repo}
+
+# Update submodules
+git submodule update --init
 
 # Migrate models to db.sqlite3
 python manage.py migrate
