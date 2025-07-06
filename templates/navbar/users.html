@@ -25,16 +25,18 @@
     <li>
       <a class="dropdown-item" href="{% url 'qux_auth:logout' %}">Logout</a>
     </li>
+    {% comment %}
     {% if user.is_super or user.is_staff %}
     <li class="dropdown-divider"></li>
     <li class="dropdown-header {% if user.is_superuser %}text-danger{% endif %}">Users</li>
     <li class="dropdown-item {% if user.is_superuser %}text-danger{% endif %}">
-      <a href="{% url 'user:list' %}">List</a>
+      <a href="#users:list">List</a>
     </li>
     <li class="dropdown-item {% if user.is_superuser %}text-danger{% endif %}">
-      <a href="{% url 'user:create' %}">Create</a>
+      <a href="#users:create">Create</a>
     </li>
     {% endif %}
+    {% endcomment %}
   </ul>
 </li>
 {% endif %}

@@ -8,19 +8,28 @@
   <div class="qux-jumbotron m-auto">
     <div class="qux-jumbotron-content p-3 p-md-5">
       <div>
-        <h1 class="my-3 my-md-5">
+        <div class="my-3 my-md-5">
           <i class="fa-solid {% block qjango_service_fa_icon %}{% endblock %} mr-2"
              style="font-size: 0.75em; vertical-align: revert; line-height: 1em;"></i>
+          <h1 class="fw-bold text-center"
+              style="font-size: clamp(2rem, 8vw, 3rem) !important;">
             {% block qjango_service_name %}
             {% endblock %}
-        </h1>
+          </h1>
+        </div>
         <div class="my-3 my-md-5">
             {% block qjango_service_oneliner %}
             {% endblock %}
         </div>
+        {% block qjango_cta %}
         <div class="my-3 my-md-5">
-          <a class="btn btn-primary text-white" href="#" role="button">Learn more &raquo;</a>
+          <a class="btn btn-light text-primary"
+             href="{% block qjango_cta_url %}{% endblock qjango_cta_url %}"
+             role="button">
+            {% block qjango_cta_label %}Learn more &raquo;{% endblock qjango_cta_label %} %}
+          </a>
         </div>
+        {% endblock qjango_cta %}
       </div>
     </div>
   </div>
