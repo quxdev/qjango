@@ -147,3 +147,5 @@ uploads/
 #vue related
 node_modules/
 
+# sqlite
+*.sqlite3
